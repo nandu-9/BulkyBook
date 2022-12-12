@@ -10,7 +10,7 @@ namespace BulkyBookWeb.Data
         }
 
         // The variable name of DbSet field will be the created table name.
-        DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
     }
 }
