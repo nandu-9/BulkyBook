@@ -1,5 +1,5 @@
 // Note: You can specify the "args" while running the dotnet command.
-using BulkyBookWeb.Data;
+using BulkyBookWeb.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
