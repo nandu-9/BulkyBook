@@ -8,16 +8,16 @@ namespace BulkyBookWeb.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly ICategoryRepository _appDbContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository appDbContext)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _appDbContext= appDbContext;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> catList = _appDbContext.GetAll();
+            IEnumerable<Category> catList = _unitOfWork.Category.GetAll();
             return View(catList);
         }
 
@@ -41,8 +41,8 @@ namespace BulkyBookWeb.Controllers
                     // For putting up the error beside the input fields
                     ModelState.AddModelError("name", "Display order and name, should not match");
                 }
-                _appDbContext.Add(obj);
-                _appDbContext.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Category.Save();
                 TempData["success"] = "Task successful";
                 return RedirectToAction("Index");
             }
@@ -59,7 +59,7 @@ namespace BulkyBookWeb.Controllers
             if ((id == null) || (id == 0))
                 return NotFound();
 
-            var categoryFromDb = _appDbContext.GetFirstOrDefault(u => u.Id == id);
+            var categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
             if (categoryFromDb == null)
                 return NotFound();
@@ -81,8 +81,8 @@ namespace BulkyBookWeb.Controllers
 					// For putting up the error beside the input fields
 					ModelState.AddModelError("name", "Display order and name, should not match");
 				}
-				_appDbContext.Update(obj);
-				_appDbContext.Save();
+				_unitOfWork.Category.Update(obj);
+				_unitOfWork.Category.Save();
                 TempData["success"] = "Task successful";
                 return RedirectToAction("Index");
 			}
@@ -99,7 +99,7 @@ namespace BulkyBookWeb.Controllers
             if ((id == null) || (id == 0))
                 return NotFound();
 
-            var categoryFromDb = _appDbContext.GetFirstOrDefault(u => u.Id == id);
+            var categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
             if (categoryFromDb == null)
                 return NotFound();
@@ -112,8 +112,8 @@ namespace BulkyBookWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Category obj)
         {
-            _appDbContext.Remove(obj);
-            _appDbContext.Save();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Category.Save();
             TempData["success"] = "Task successful";
             return RedirectToAction("Index");
         }

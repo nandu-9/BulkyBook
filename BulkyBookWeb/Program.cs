@@ -13,8 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
-// Note: This is smart when it comes to dependency injection.
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository> ();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork> ();
 
 
 var app = builder.Build();
