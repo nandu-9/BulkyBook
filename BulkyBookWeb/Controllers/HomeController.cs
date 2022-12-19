@@ -16,11 +16,13 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Index()
         {
+            // Note : This returns the corresponding view related to Homecontroller and Index
             return View();
         }
 
         public IActionResult Privacy()
         {
+            // This returns corresponding Privacy view
             return View();
         }
 
