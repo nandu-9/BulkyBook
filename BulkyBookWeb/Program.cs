@@ -1,4 +1,6 @@
 // Note: You can specify the "args" while running the dotnet command.
+using BulkyBook.DataAccess.Repository;
+using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBookWeb.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+// Note: This is smart when it comes to dependency injection.
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository> ();
 
 
 var app = builder.Build();
